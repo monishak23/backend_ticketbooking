@@ -1,0 +1,36 @@
+const Booking = require('../model/Booking');
+
+// Function to send an email
+
+const book = (req, res, next) => {
+
+  const newbooking = new Booking({
+    moviename: req.body["movie name"],
+    theatrename: req.body["theatre name"],
+    theatrelocation: req.body["theatre location"],
+    releasedate: req.body["release date"],
+    seats: req.body.seats,
+    showtiming: req.body.showtiming,
+    username:req.body.username,
+  
+  });
+ 
+
+  newbooking
+    .save()
+    .then((booking) => {
+      res.json({
+        message: 'Show booked successfully', 
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message: 'An error occurred',
+        error: error.message, // Provide the error message for debugging
+      });
+    });
+};
+
+module.exports = {
+  book
+};
